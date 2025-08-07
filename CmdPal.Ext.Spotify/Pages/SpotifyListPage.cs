@@ -85,7 +85,7 @@ internal sealed partial class SpotifyListPage : DynamicListPage
         {
             var clientId = _settingsManager.ClientId;
 
-            if (string.IsNullOrEmpty(clientId))
+            if (string.IsNullOrWhiteSpace(clientId))
             {
                 EmptyContent = new CommandItem()
                 {
@@ -120,7 +120,7 @@ internal sealed partial class SpotifyListPage : DynamicListPage
                         }).Show();
                         Journal.Append($"{Resources.LoginUserInfoEmptyToast}: {ex.Message}: {JsonConvert.SerializeObject(this)}");
                     }
-                    RefreshCommandList();
+                    RefreshCommandList(); //to complete search entered before login
                 };
                 EmptyContent = new CommandItem(loginCommand)
                 {
@@ -191,7 +191,7 @@ internal sealed partial class SpotifyListPage : DynamicListPage
     public List<Command> GetPlayerCommands()
     {
         var clientId = _settingsManager.ClientId;
-        if (_spotifyClient == null && !string.IsNullOrEmpty(clientId))
+        if (_spotifyClient == null && !string.IsNullOrWhiteSpace(clientId))
             _spotifyClient = Task.Run(() => GetSpotifyClientAsync(clientId)).Wait(TimeSpan.FromSeconds(3))
                                 ? GetSpotifyClientAsync(clientId).Result
                                 : null;

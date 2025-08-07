@@ -7,6 +7,7 @@ using SpotifyAPI.Web;
 using SpotifyAPI.Web.Auth;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Threading.Tasks;
@@ -30,8 +31,20 @@ internal partial class LoginCommand : InvokableCommand
 
     public override CommandResult Invoke()
     {
-        InvokeAsync().GetAwaiter().GetResult();
-        return CommandResult.Hide();
+        //InvokeAsync().GetAwaiter().GetResult();
+        //return CommandResult.Hide();
+        var task = InvokeAsync();
+        if (Task.WhenAny(task, Task.Delay(7500)).GetAwaiter().GetResult() == task)
+        {
+            task.GetAwaiter().GetResult(); 
+        }
+        else
+        {
+            new ToastStatusMessage(new StatusMessage() { Message = String.Format(Resources.ErrorLoginToast, Resources.ErrorLoginDetail), State = MessageState.Warning }).Show();
+            Journal.Append($"{Resources.ResourceManager.GetString("ErrorLoginToast", CultureInfo.InvariantCulture)} {Resources.ResourceManager.GetString("ErrorLoginDetail", CultureInfo.InvariantCulture)}.", label: Journal.Label.Warning);
+        }
+
+        return CommandResult.KeepOpen();
     }
 
     private async Task InvokeAsync()

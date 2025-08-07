@@ -160,7 +160,16 @@ namespace CmdPal.Ext.Spotify.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Could not log in..
+        ///   Looks up a localized string similar to Incorrect Client ID or timeout; please try again..
+        /// </summary>
+        internal static string ErrorLoginDetail {
+            get {
+                return ResourceManager.GetString("ErrorLoginDetail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Could not log in. {0}.
         /// </summary>
         internal static string ErrorLoginToast {
             get {
@@ -205,6 +214,15 @@ namespace CmdPal.Ext.Spotify.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Go Back.
+        /// </summary>
+        internal static string ExtensionSettingCommandResultActionGoBack {
+            get {
+                return ResourceManager.GetString("ExtensionSettingCommandResultActionGoBack", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Go Home.
         /// </summary>
         internal static string ExtensionSettingCommandResultActionGoHome {
@@ -232,7 +250,7 @@ namespace CmdPal.Ext.Spotify.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to What should the Spotify control do after {0}?.
+        ///   Looks up a localized string similar to What should Spotify control do after {0}?.
         /// </summary>
         internal static string ExtensionSettingCommandResultDesc {
             get {

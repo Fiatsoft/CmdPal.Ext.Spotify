@@ -204,27 +204,6 @@
   <data name="ExtensionSettingFilterWildcard" xml:space="preserve">
     <value>过滤通配符</value>
   </data>
-  <data name="SearchTypeAlbum" xml:space="preserve">
-    <value>专辑</value>
-  </data>
-  <data name="SearchTypeArtist" xml:space="preserve">
-    <value>艺术家</value>
-  </data>
-  <data name="SearchTypePlaylist" xml:space="preserve">
-    <value>播放列表</value>
-  </data>
-  <data name="SearchTypeSong" xml:space="preserve">
-    <value>歌曲</value>
-  </data>
-  <data name="SearchTypeShow" xml:space="preserve">
-    <value>展示</value>
-  </data>
-  <data name="SearchTypeEpisode" xml:space="preserve">
-    <value>插曲</value>
-  </data>
-  <data name="SearchTypeAudiobook" xml:space="preserve">
-    <value>有声读物</value>
-  </data>
   <data name="ExtensionSettingClientId" xml:space="preserve">
     <value>Client ID</value>
   </data>
@@ -250,7 +229,7 @@
     <value>无法加载曲目</value>
   </data>
   <data name="ErrorLoginToast" xml:space="preserve">
-    <value>无法登录</value>
+    <value>无法登录. {0}</value>
   </data>
   <data name="ExtensionStatusDescription" xml:space="preserve">
     <value>搜索歌曲与控制 Spotify
@@ -282,9 +261,6 @@
   </data>
   <data name="ExtensionSettingCommandResultActionKeepOpen" xml:space="preserve">
     <value>保持打开</value>
-  </data>
-  <data name="ExtensionSettingCommandResultActionGoHome" xml:space="preserve">
-    <value>回到首页</value>
   </data>
   <data name="ExtensionSettingCommandResultLabel" xml:space="preserve">
     <value>{0} 之后</value>
@@ -324,5 +300,14 @@
   </data>
   <data name="NameLoginCommand" xml:space="preserve">
     <value>登录命令</value>
+  </data>
+  <data name="ExtensionSettingCommandResultActionGoHome" xml:space="preserve">
+    <value>回到首页</value>
+  </data>
+  <data name="ExtensionSettingCommandResultActionGoBack" xml:space="preserve">
+    <value>回去</value>
+  </data>
+  <data name="ErrorLoginDetail" xml:space="preserve">
+    <value>客户端 ID 不正确或超时；请重试.</value>
   </data>
 </root>

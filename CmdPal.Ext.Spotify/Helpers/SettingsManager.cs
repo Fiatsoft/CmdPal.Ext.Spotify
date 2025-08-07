@@ -4,8 +4,10 @@ using Microsoft.CommandPalette.Extensions.Toolkit;
 using Microsoft.UI.Xaml.Controls;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 
 namespace CmdPal.Ext.Spotify.Helpers;
 
@@ -41,43 +43,81 @@ public class SettingsManager : JsonSettingsManager
 
     public string FilterWildcard => _filterWildcard.Value;
 
+    public CommandResult[] ComandResultsChoices = { CommandResult.Hide(), CommandResult.KeepOpen(), CommandResult.GoBack(), CommandResult.GoHome() };
+    public static Dictionary<string, CommandResult> ComandResultsChoicesDictionary;
     public Dictionary<string, ChoiceSetSetting> CommandResults { get; } = new();
+    bool IsSubclassOfRawGeneric(Type generic, Type toCheck)
+    {
+        while (toCheck != null && toCheck != typeof(object))
+        {
+            var cur = toCheck.IsGenericType ? toCheck.GetGenericTypeDefinition() : toCheck;
+            if (generic == cur)
+                return true;
+            toCheck = toCheck.BaseType;
+        }
+        return false;
+    }
+    private static string? TryGetResource(string key)
+    {
+        try
+        {
+            var value = Resources.ResourceManager.GetString(key);
+            return string.IsNullOrWhiteSpace(value) ? null : value;
+        }
+        catch
+        {
+            return null;
+        }
+    }
+    private static string InsertSpacesInPascalCase(string input)
+    {
+        if (string.IsNullOrWhiteSpace(input))
+            return input;
+        return System.Text.RegularExpressions.Regex.Replace(input, @"(?<!^)([A-Z])", " $1");
+    }
+
 
     public SettingsManager()
     {
+
         FilePath = SettingsJsonPath();
 
         Settings.Add(_clientId);
         Settings.Add(_filterWildcard);
 
-        var choices = new List<ChoiceSetSetting.Choice>() {
-            new ChoiceSetSetting.Choice(Resources.ExtensionSettingCommandResultActionHide, "Hide"),
-            new ChoiceSetSetting.Choice(Resources.ExtensionSettingCommandResultActionKeepOpen, "KeepOpen"),
-            new ChoiceSetSetting.Choice(Resources.ExtensionSettingCommandResultActionGoHome, "GoHome")
-        };
-        foreach (var commandName in new string[] {
-            nameof(AddToQueueCommand),
-            nameof(LoginCommand),
-            nameof(PausePlaybackCommand),
-            nameof(ResumePlaybackCommand),
-            nameof(SetRepeatCommand),
-            nameof(SetShuffleCommand),
-            nameof(SkipNextCommand),
-            nameof(SkipPreviousCommand),
-            nameof(TogglePlaybackCommand),
-            nameof(TransferPlaybackCommand)
-        })
+        try
         {
-            CommandResults.Add(commandName, new ChoiceSetSetting(
+            ComandResultsChoicesDictionary = ComandResultsChoices.ToDictionary(c => c.Kind.ToString());
+            var choices = new List<ChoiceSetSetting.Choice>(ComandResultsChoices.Select(c => new ChoiceSetSetting.Choice(Resources.ResourceManager.GetString($"ExtensionSettingCommandResultAction{c.Kind.ToString()}"), c.Kind.ToString())));
+
+            var baseType = typeof(CmdPal.Ext.Spotify.Commands.PlayerCommand<>);
+            var types = baseType.Assembly
+                .GetTypes()
+                .Where(t =>
+                    t.IsClass &&
+                    !t.IsAbstract &&
+                    t.Namespace == "CmdPal.Ext.Spotify.Commands" &&
+                    IsSubclassOfRawGeneric(baseType, t))
+                .ToList();
+
+            foreach (var type in types)
+            {
+                var commandName = type.Name;
+                string label = TryGetResource($"Name{commandName}") ?? InsertSpacesInPascalCase(commandName);
+                CommandResults.Add(commandName, new ChoiceSetSetting(
                     key: commandName,
-                    label: string.Format(Resources.ExtensionSettingCommandResultLabel, Resources.ResourceManager.GetString($"Name{commandName}")),
-                    description: string.Format(Resources.ExtensionSettingCommandResultDesc, Resources.ResourceManager.GetString($"Name{commandName}")),
+                    label: string.Format(Resources.ExtensionSettingCommandResultLabel, label),
+                    description: string.Format(Resources.ExtensionSettingCommandResultDesc, label),
                     choices: choices
-                )
-            );
+                ));
+            }
+            foreach (var choiceSetSetting in CommandResults.Values)
+                Settings.Add(choiceSetSetting);
         }
-        foreach (var choiceSetSetting in CommandResults.Values)
-            Settings.Add(choiceSetSetting);
+        catch (Exception ex)
+        {
+            Journal.Append($"Could not initialize CommandResult settings: {ex.Message}", label: Journal.Label.Error);
+        }
 
         LoadSettings();
 
