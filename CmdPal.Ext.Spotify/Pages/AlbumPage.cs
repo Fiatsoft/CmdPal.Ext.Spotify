@@ -17,15 +17,10 @@ internal partial class AlbumPage : ListPage
 {
     private SpotifyClient spotifyClient;
     private string albumId;
-    public AlbumPage(
-        SpotifyClient spotifyClient,
-        string albumId,
-        string albumName = null
-    )
+    public AlbumPage(SpotifyClient spotifyClient, string albumId, string albumName = null)
     {
         this.spotifyClient = spotifyClient;
-        this.Name = !String.IsNullOrEmpty(albumName) ? $"{Resources.ContextMenuResultGoToAlbumTitle}: {albumName}" : Resources.ContextMenuResultGoToAlbumTitle;
-        this.Title = albumName;
+        this.Title = !String.IsNullOrEmpty(albumName) ? albumName : Resources.ContextMenuResultGoToAlbumTitle;
         this.albumId = albumId;
         this.Icon = Icons.Album;
     }

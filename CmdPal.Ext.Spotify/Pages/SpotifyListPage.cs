@@ -240,7 +240,8 @@ internal sealed partial class SpotifyListPage : DynamicListPage
 
         var searchRequest = new SearchRequest(searchTypes, search)
         {
-            Limit = 5
+            Limit = 5,
+            Market = _settingsManager.MarketCountryCode
         };
 
         var searchResponse = await _spotifyClient.Search.Item(searchRequest);
@@ -253,6 +254,8 @@ internal sealed partial class SpotifyListPage : DynamicListPage
             results.AddRange(CmdPal.Ext.Spotify.Helpers.Artist.ListItems(searchResponse.Artists.Items, _spotifyClient));
         if (searchResponse.Playlists?.Items != null)
             results.AddRange(CmdPal.Ext.Spotify.Helpers.Playlist.ListItems(searchResponse.Playlists.Items, _spotifyClient));
+        if (searchResponse.Episodes?.Items != null)
+            results.AddRange(CmdPal.Ext.Spotify.Helpers.Episode.ListItems(searchResponse.Episodes.Items, _spotifyClient));
 
         return results;
     }

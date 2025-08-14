@@ -31,30 +31,25 @@ internal partial class LoginCommand : InvokableCommand
 
     public override CommandResult Invoke()
     {
-        //InvokeAsync().GetAwaiter().GetResult();
-        //return CommandResult.Hide();
-        var task = InvokeAsync();
-        if (Task.WhenAny(task, Task.Delay(7500)).GetAwaiter().GetResult() == task)
-        {
-            task.GetAwaiter().GetResult(); 
-        }
-        else
-        {
-            new ToastStatusMessage(new StatusMessage() { Message = String.Format(Resources.ErrorLoginToast, Resources.ErrorLoginDetail), State = MessageState.Warning }).Show();
-            Journal.Append($"{Resources.ResourceManager.GetString("ErrorLoginToast", CultureInfo.InvariantCulture)} {Resources.ResourceManager.GetString("ErrorLoginDetail", CultureInfo.InvariantCulture)}.", label: Journal.Label.Warning);
-        }
-
+        var _ = InvokeAsync();
+        new ToastStatusMessage(new StatusMessage() { Message = Resources.LoginPromptToast, State = MessageState.Info }).Show();
         return CommandResult.KeepOpen();
     }
 
     private async Task InvokeAsync()
     {
+        if (SpotifyCommandsProvider.EmbedIOAuthServer != null)
+        {
+            await SpotifyCommandsProvider.EmbedIOAuthServer.Stop();
+            SpotifyCommandsProvider.EmbedIOAuthServer.Dispose();
+            SpotifyCommandsProvider.EmbedIOAuthServer = null;
+        }
         var (verifier, challenge) = PKCEUtil.GenerateCodes();
 
         var tcs = new TaskCompletionSource();
 
         var callbackUri = new Uri("http://127.0.0.1:5543/callback");
-        var authServer = new EmbedIOAuthServer(callbackUri, 5543);
+        var authServer = SpotifyCommandsProvider.EmbedIOAuthServer = new EmbedIOAuthServer(callbackUri, 5543);
 
         authServer.AuthorizationCodeReceived += async (sender, response) =>
         {

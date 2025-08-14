@@ -3,14 +3,16 @@ using CmdPal.Ext.Spotify.Pages;
 using CmdPal.Ext.Spotify.Properties;
 using Microsoft.CommandPalette.Extensions;
 using Microsoft.CommandPalette.Extensions.Toolkit;
+using SpotifyAPI.Web.Auth;
 
 namespace CmdPal.Ext.Spotify;
 
 public partial class SpotifyCommandsProvider : CommandProvider
 {
     private readonly CommandItem _command;
-    internal static readonly SettingsManager SettingsManager = new();
-    private static readonly SpotifyListPage _spotifyExtensionPage = new(SettingsManager);
+    private static readonly SettingsManager SettingsManager = new();
+    private readonly SpotifyListPage _spotifyExtensionPage = new(SettingsManager);
+    internal static EmbedIOAuthServer EmbedIOAuthServer;
 
     public SpotifyCommandsProvider()
     {

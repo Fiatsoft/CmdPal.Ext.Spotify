@@ -24,7 +24,18 @@ namespace CmdPal.Ext.Spotify.Helpers
                     if (!Without.Contains(typeof(AddToQueueCommand)))
                         moreCommands.Add(new CommandContextItem(new AddToQueueCommand(_spotifyClient, new PlayerAddToQueueRequest(track.Uri))));
                     if (!Without.Contains(typeof(AlbumPage)))
-                        moreCommands.Add(new CommandContextItem(new AlbumPage(_spotifyClient, track.Album.Id, track.Album.Name)));
+                        moreCommands.Add(new CommandContextItem(new AlbumPage(_spotifyClient, track.Album.Id, track.Album.Name)
+                        {
+                            Name = String.Format(Resources.ContextMenuResultGoToAlbumTemplate, track.Album.Name)
+                        }));
+                    if (!Without.Contains(typeof(ArtistAlbumsPage)))
+                        foreach(SimpleArtist artist in track.Artists)
+                        {
+                            moreCommands.Add(new CommandContextItem(new ArtistAlbumsPage(_spotifyClient, artist)
+                            {
+                                Name = String.Format(Resources.ContextMenuResultGoToArtistTemplate, artist.Name)
+                            }));
+                        }
                     return new ListItem(new ResumePlaybackCommand(_spotifyClient, new PlayerResumePlaybackRequest() { Uris = [track.Uri] })) {
                         Title = track.Name,
                         Subtitle = $"{Resources.ResultSongSubTitle}{(track.Explicit ? $" • {Resources.ResultSongExplicitSubTitle}" : "")} • {Resources.ResultSongBySubTitle} {string.Join(", ", track.Artists.Select(x => x.Name))}",

@@ -5,9 +5,12 @@ using Microsoft.UI.Xaml.Controls;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Text.RegularExpressions;
+using System.Threading;
 
 namespace CmdPal.Ext.Spotify.Helpers;
 
@@ -45,7 +48,7 @@ public class SettingsManager : JsonSettingsManager
 
     public CommandResult[] ComandResultsChoices = { CommandResult.Hide(), CommandResult.KeepOpen(), CommandResult.GoBack(), CommandResult.GoHome() };
     public static Dictionary<string, CommandResult> ComandResultsChoicesDictionary;
-    public Dictionary<string, ChoiceSetSetting> CommandResults { get; } = new();
+    public static Dictionary<string, ChoiceSetSetting> CommandResults { get; } = new();
     bool IsSubclassOfRawGeneric(Type generic, Type toCheck)
     {
         while (toCheck != null && toCheck != typeof(object))
@@ -76,6 +79,8 @@ public class SettingsManager : JsonSettingsManager
         return System.Text.RegularExpressions.Regex.Replace(input, @"(?<!^)([A-Z])", " $1");
     }
 
+    private ChoiceSetSetting marketCountrySetting;
+    public string MarketCountryCode { get { return marketCountrySetting.Value;  } }
 
     public SettingsManager()
     {
@@ -103,6 +108,10 @@ public class SettingsManager : JsonSettingsManager
             foreach (var type in types)
             {
                 var commandName = type.Name;
+#if DEBUG
+                if (commandName != "AddToQueueCommand")
+                    continue;
+#endif
                 string label = TryGetResource($"Name{commandName}") ?? InsertSpacesInPascalCase(commandName);
                 CommandResults.Add(commandName, new ChoiceSetSetting(
                     key: commandName,
@@ -117,6 +126,25 @@ public class SettingsManager : JsonSettingsManager
         catch (Exception ex)
         {
             Journal.Append($"Could not initialize CommandResult settings: {ex.Message}", label: Journal.Label.Error);
+        }
+
+        try
+        {
+            var countryDict = new Dictionary<string, string>();
+            var choices = new List<ChoiceSetSetting.Choice>(Spotify.Helpers.SpotifyMarkets.Native.Select(c => new ChoiceSetSetting.Choice($"{c.Value} ({c.Key})", c.Key)));
+            this.marketCountrySetting = new ChoiceSetSetting(
+                key: "marketCountrySetting",
+                label: Resources.ExtensionSettingMarketLabel,
+                description: Resources.ExtensionSettingMarketDesc,
+                choices: choices
+            );
+            var detectedCountryCode = RegionInfo.CurrentRegion?.TwoLetterISORegionName;
+            marketCountrySetting.Value = detectedCountryCode ?? "US";
+            Settings.Add(marketCountrySetting);
+        }
+        catch (Exception ex)
+        {
+            Journal.Append($"Could not initialize Market settings: {ex.Message}", label: Journal.Label.Error);
         }
 
         LoadSettings();

@@ -338,4 +338,41 @@ as {0} ({1})</value>
   <data name="ErrorLoginDetail" xml:space="preserve">
     <value>Incorrect Client ID or timeout; please try again.</value>
   </data>
+  <data name="LoginPromptToast" xml:space="preserve">
+    <value>Please complete the login in your browser</value>
+  </data>
+  <data name="ExtensionSettingMarketLabel" xml:space="preserve">
+    <value>Spotify Market</value>
+  </data>
+  <data name="ExtensionSettingMarketDesc" xml:space="preserve">
+    <value>Spotify market for podcasts and audio-books</value>
+  </data>
+  <data name="ErrorShowPage" xml:space="preserve">
+    <value>Could not load show</value>
+  </data>
+  <data name="ContextMenuResultGoToShowTitle" xml:space="preserve">
+    <value>Go to show</value>
+  </data>
+  <data name="ShowPageTitle" xml:space="preserve">
+    <value>Show</value>
+    <comment>节目</comment>
+  </data>
+  <data name="ContextMenuResultGoToPlaylistTitle" xml:space="preserve">
+    <value>Go to playlist</value>
+  </data>
+  <data name="ContextMenuResultGoToAlbumTemplate" xml:space="preserve">
+    <value>Go to album: {0}</value>
+  </data>
+  <data name="ErrorUnsupportedPlaylistItem" xml:space="preserve">
+    <value>Unsupported playlist item encountered</value>
+  </data>
+  <data name="ErrorArtistPage" xml:space="preserve">
+    <value>Could not load artist's albums</value>
+  </data>
+  <data name="ArtistAlbumsPageTitle" xml:space="preserve">
+    <value>Artist's Albums</value>
+  </data>
+  <data name="ContextMenuResultGoToArtistTemplate" xml:space="preserve">
+    <value>Go to albums by {0}</value>
+  </data>
 </root>

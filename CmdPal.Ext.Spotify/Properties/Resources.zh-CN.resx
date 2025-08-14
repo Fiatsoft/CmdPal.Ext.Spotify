@@ -208,7 +208,7 @@
     <value>Client ID</value>
   </data>
   <data name="ContextMenuResultGoToAlbumTitle" xml:space="preserve">
-    <value> 前往专辑</value>
+    <value>前往专辑</value>
   </data>
   <data name="DeviceCacheErrorToast" xml:space="preserve">
     <value>无法刷新可用设备</value>
@@ -309,5 +309,41 @@
   </data>
   <data name="ErrorLoginDetail" xml:space="preserve">
     <value>客户端 ID 不正确或超时；请重试.</value>
+  </data>
+  <data name="LoginPromptToast" xml:space="preserve">
+    <value>请在浏览器中完成登录</value>
+  </data>
+  <data name="ExtensionSettingMarketLabel" xml:space="preserve">
+    <value>Spotify 市场</value>
+  </data>
+  <data name="ExtensionSettingMarketDesc" xml:space="preserve">
+    <value>Spotify 的播客和有声读物市场</value>
+  </data>
+  <data name="ErrorShowPage" xml:space="preserve">
+    <value>无法加载节目</value>
+  </data>
+  <data name="ContextMenuResultGoToShowTitle" xml:space="preserve">
+    <value>前往展示</value>
+  </data>
+  <data name="ShowPageTitle" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ContextMenuResultGoToPlaylistTitle" xml:space="preserve">
+    <value>前往播放列表</value>
+  </data>
+  <data name="ContextMenuResultGoToAlbumTemplate" xml:space="preserve">
+    <value>转到专辑：{0}</value>
+  </data>
+  <data name="ErrorUnsupportedPlaylistItem" xml:space="preserve">
+    <value>遇到不支持的播放列表项目</value>
+  </data>
+  <data name="ErrorArtistPage" xml:space="preserve">
+    <value>无法加载艺术家的专辑</value>
+  </data>
+  <data name="ArtistAlbumsPageTitle" xml:space="preserve">
+    <value>艺术家专辑</value>
+  </data>
+  <data name="ContextMenuResultGoToArtistTemplate" xml:space="preserve">
+    <value>前往 {0} 的专辑</value>
   </data>
 </root>

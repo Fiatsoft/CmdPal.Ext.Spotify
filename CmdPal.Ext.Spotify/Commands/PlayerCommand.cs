@@ -36,9 +36,9 @@ internal abstract class PlayerCommand<T> : InvokableCommand
         return GetCommandResult(this);
     }
 
-    private CommandResult GetCommandResult(PlayerCommand<T> playerCommand)
+    public CommandResult GetCommandResult(PlayerCommand<T> playerCommand)
     {
-        if (SpotifyCommandsProvider.SettingsManager.CommandResults.TryGetValue(playerCommand.GetType().Name, out var setting))
+        if (SettingsManager.CommandResults.TryGetValue(playerCommand.GetType().Name, out var setting))
             return SettingsManager.ComandResultsChoicesDictionary[setting.Value];
         return CommandResult.Hide();
     }

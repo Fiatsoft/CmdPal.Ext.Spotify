@@ -61,6 +61,15 @@ namespace CmdPal.Ext.Spotify.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Artist&apos;s Albums.
+        /// </summary>
+        internal static string ArtistAlbumsPageTitle {
+            get {
+                return ResourceManager.GetString("ArtistAlbumsPageTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add to queue.
         /// </summary>
         internal static string ContextMenuResultAddToQueueTitle {
@@ -70,11 +79,47 @@ namespace CmdPal.Ext.Spotify.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Go to album: {0}.
+        /// </summary>
+        internal static string ContextMenuResultGoToAlbumTemplate {
+            get {
+                return ResourceManager.GetString("ContextMenuResultGoToAlbumTemplate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Go to album.
         /// </summary>
         internal static string ContextMenuResultGoToAlbumTitle {
             get {
                 return ResourceManager.GetString("ContextMenuResultGoToAlbumTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Go to albums by {0}.
+        /// </summary>
+        internal static string ContextMenuResultGoToArtistTemplate {
+            get {
+                return ResourceManager.GetString("ContextMenuResultGoToArtistTemplate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Go to playlist.
+        /// </summary>
+        internal static string ContextMenuResultGoToPlaylistTitle {
+            get {
+                return ResourceManager.GetString("ContextMenuResultGoToPlaylistTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Go to show.
+        /// </summary>
+        internal static string ContextMenuResultGoToShowTitle {
+            get {
+                return ResourceManager.GetString("ContextMenuResultGoToShowTitle", resourceCulture);
             }
         }
         
@@ -133,6 +178,15 @@ namespace CmdPal.Ext.Spotify.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Could not load artist&apos;s albums.
+        /// </summary>
+        internal static string ErrorArtistPage {
+            get {
+                return ResourceManager.GetString("ErrorArtistPage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Could not write session log.
         /// </summary>
         internal static string ErrorJournalAppend {
@@ -174,6 +228,24 @@ namespace CmdPal.Ext.Spotify.Properties {
         internal static string ErrorLoginToast {
             get {
                 return ResourceManager.GetString("ErrorLoginToast", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Could not load show.
+        /// </summary>
+        internal static string ErrorShowPage {
+            get {
+                return ResourceManager.GetString("ErrorShowPage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unsupported playlist item encountered.
+        /// </summary>
+        internal static string ErrorUnsupportedPlaylistItem {
+            get {
+                return ResourceManager.GetString("ErrorUnsupportedPlaylistItem", resourceCulture);
             }
         }
         
@@ -286,12 +358,39 @@ namespace CmdPal.Ext.Spotify.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Spotify market for podcasts and audio-books.
+        /// </summary>
+        internal static string ExtensionSettingMarketDesc {
+            get {
+                return ResourceManager.GetString("ExtensionSettingMarketDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Spotify Market.
+        /// </summary>
+        internal static string ExtensionSettingMarketLabel {
+            get {
+                return ResourceManager.GetString("ExtensionSettingMarketLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Search through and control Spotify
         ///as {0} ({1}).
         /// </summary>
         internal static string ExtensionStatusDescription {
             get {
                 return ResourceManager.GetString("ExtensionStatusDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please complete the login in your browser.
+        /// </summary>
+        internal static string LoginPromptToast {
+            get {
+                return ResourceManager.GetString("LoginPromptToast", resourceCulture);
             }
         }
         
@@ -679,6 +778,15 @@ namespace CmdPal.Ext.Spotify.Properties {
         internal static string SearchTypeTrack {
             get {
                 return ResourceManager.GetString("SearchTypeTrack", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show.
+        /// </summary>
+        internal static string ShowPageTitle {
+            get {
+                return ResourceManager.GetString("ShowPageTitle", resourceCulture);
             }
         }
         
