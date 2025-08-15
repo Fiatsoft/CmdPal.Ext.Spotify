@@ -26,7 +26,7 @@ namespace CmdPal.Ext.Spotify.Helpers
                 {
                     Title = artist.Name,
                     Subtitle = Resources.ResultArtistSubTitle,
-                    Icon = new IconInfo(artist.Images.OrderBy(x => x.Width * x.Height).FirstOrDefault()?.Url),
+                    Icon = For.Count > 25 ? Icons.Play : new IconInfo(artist.Images.OrderBy(x => x.Width * x.Height).FirstOrDefault()?.Url),
                     MoreCommands = moreCommands.ToArray()
                 };
             });

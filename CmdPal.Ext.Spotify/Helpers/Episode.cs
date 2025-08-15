@@ -28,7 +28,7 @@ namespace CmdPal.Ext.Spotify.Helpers
                     {
                         Title = episode.Name,
                         Subtitle = $"Episode{(episode.Explicit ? $" • {Resources.ResultSongExplicitSubTitle}" : "")} • {episode.Description.Truncate(100)}",
-                        Icon = new IconInfo(episode.Images.OrderBy(x => x.Width * x.Height).FirstOrDefault()?.Url),
+                        Icon = For.Count > 25 ? Icons.Play : new IconInfo(episode.Images.OrderBy(x => x.Width * x.Height).FirstOrDefault()?.Url),
                         MoreCommands = moreCommands.ToArray()
                     };
                 }).ToList();

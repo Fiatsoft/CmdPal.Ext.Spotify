@@ -37,7 +37,7 @@ namespace CmdPal.Ext.Spotify.Helpers
                 {
                     Title = album.Name,
                     Subtitle = Resources.ResultAlbumSubTitle,
-                    Icon = new IconInfo(album.Images.OrderBy(x => x.Width * x.Height).FirstOrDefault()?.Url),
+                    Icon = For.Count > 25 ? Icons.Play : new IconInfo(album.Images.OrderBy(x => x.Width * x.Height).FirstOrDefault()?.Url),
                     MoreCommands = moreCommands.ToArray()
                 };
             });

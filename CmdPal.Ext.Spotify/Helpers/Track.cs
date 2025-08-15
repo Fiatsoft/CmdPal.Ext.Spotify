@@ -39,7 +39,7 @@ namespace CmdPal.Ext.Spotify.Helpers
                     return new ListItem(new ResumePlaybackCommand(_spotifyClient, new PlayerResumePlaybackRequest() { Uris = [track.Uri] })) {
                         Title = track.Name,
                         Subtitle = $"{Resources.ResultSongSubTitle}{(track.Explicit ? $" • {Resources.ResultSongExplicitSubTitle}" : "")} • {Resources.ResultSongBySubTitle} {string.Join(", ", track.Artists.Select(x => x.Name))}",
-                        Icon = new IconInfo(track.Album.Images.OrderBy(x => x.Width * x.Height).FirstOrDefault()?.Url),
+                        Icon = For.Count > 25 ? Icons.Play : new IconInfo(track.Album.Images.OrderBy(x => x.Width * x.Height).FirstOrDefault()?.Url),
                         MoreCommands = moreCommands.ToArray()
                     };
                 }).ToList();
